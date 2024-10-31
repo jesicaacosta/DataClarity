@@ -1,0 +1,207 @@
+/* Fondo y estilo general de la página */
+
+/*Colores
+#D6E5E3
+#CACFD6
+#A6B1E1
+#DCD6F7
+*/
+
+body {
+  background-color: #dcd6f7;
+  padding: 0 20px;
+}
+
+* {
+  font-family: "Roboto", serif;
+  font-style: normal;
+}
+/* Estilo para el contenedor principal */
+.container {
+  max-width: 700px;
+  margin-top: 40px;
+}
+
+/* Estilo de encabezado */
+h1 {
+  font-weight: bold;
+  color: #424874;
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+h2 {
+  font-family: "Roboto", sans-serif;
+}
+/* Texto informativo */
+.lead {
+  color: #718096;
+}
+
+.fas {
+  color: darkorange;
+  font-size: 0.9em;
+}
+
+/* Caja de formulario*/
+
+.form-container {
+  background-color: #d6e5e3;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column; /* Apila los elementos verticalmente */
+  gap: 10px; /* Espacio entre los elementos */
+}
+
+.font-weight-bold {
+  font-weight: bold;
+  font-size: 16px; /* Adjust font size as needed */
+  font-family: "Roboto", sans-serif;
+  font-size: 1.2em;
+  color: #000000;
+}
+
+.btn-upload {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin: 10px auto;
+}
+
+.btn-upload:hover {
+  background-color: #0062cc;
+}
+
+/* Botón de subida */
+.btn-upload {
+  box-shadow: 0px 1px 0px 0px #f0f7fa;
+  background: linear-gradient(to bottom, #33bdef 5%, #019ad2 100%);
+  background-color: #33bdef;
+  border-radius: 6px;
+  border: 1px solid #057fd0;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 0px -1px 0px #5b6178;
+}
+.btn-upload:hover {
+  background: linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
+  background-color: #019ad2;
+}
+.btn-upload:active {
+  position: relative;
+  top: 1px;
+}
+
+.btn-upload:hover {
+  background-color: #357abd;
+}
+
+/* Estilos para la tabla de estadisticas basicas */
+.stats-section {
+  margin-top: 20px;
+}
+
+.stats-section h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f2f2f2;
+}
+
+.table-striped tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Tbala vista previa */
+
+.data-table {
+  margin-top: 20px;
+}
+
+.data-table h2 {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #666; /* Color más suave para el título */
+}
+
+.table-responsive table {
+  border-collapse: collapse;
+  width: 90%;
+}
+
+.table-responsive table th,
+.table-responsive table td {
+  border: 2px solid #ddd;
+  padding: 3px; /* Menos padding para un aspecto más compacto */
+  text-align: left;
+}
+
+.table-responsive table th {
+  /*encabezados */
+  background-color: #f9f9f9;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Grafico Contenedor */
+
+.graph-container {
+  border: 2px solid red;
+}
