@@ -1,47 +1,61 @@
-// Manejador de evento para el botón de generar gráfico
-document.getElementById("generate-graph").addEventListener("click", function() {
-    const selectedColumn = document.getElementById("selected_column").value;
+/*
+Manejador de evento para el botón de generar gráfico
+document.getElementById("generate-graph").addEventListener("click", function(event) {
+    event.preventDefault();  // Evita que el formulario se envíe automáticamente
+
+    const selectedColumn = document.getElementById("selected_column").value;  // Obtiene la columna seleccionada
 
     // Envía el valor de la columna seleccionada al servidor
-    fetch("/update_graph", {
-        method: "POST",
+    fetch("/generate-graph", {  // Asegúrate de que esta ruta coincide con la de app.py
+        method: "POST",  // Especifica que se enviará una solicitud POST
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json"  // Indica que el contenido enviado es JSON
         },
-        body: JSON.stringify({ selected_column: selectedColumn })
+        body: JSON.stringify({ selected_column: selectedColumn })  // Convierte el objeto JavaScript a JSON
     })
-    .then(response => response.text())
-    .then(graphHtml => {
-        // Inserta el gráfico en el contenedor designado
-        document.getElementById("graph-container").innerHTML = graphHtml;
+    .then(response => response.json())  // Espera una respuesta en formato JSON
+    .then(data => {
+        // Si se recibe el HTML del gráfico
+        if (data.graph_html) {
+            const graphDiv = document.getElementById("graph");  // Cambia esto a 'graph' ya que es donde se mostrará
+            graphDiv.innerHTML = data.graph_html;  // Inserta el HTML del gráfico en el contenedor
+            graphDiv.style.display = "block";  // Asegura que el contenedor del gráfico sea visible
+        } else {
+            // Si no se recibe un gráfico válido, muestra un error en la consola
+            console.error("Error: ", data.error || "No se pudo generar el gráfico.");
+        }
     })
     .catch(error => {
-        console.error("Error:", error);
+        // Captura y muestra cualquier error que ocurra durante la solicitud
+        console.error("Error al generar el gráfico:", error);
     });
 });
+*/
 
 
-// Para el boton de generar grafico 
+
+// Manejador de evento para el botón de generar gráfico
+// Manejador de evento para el botón de generar gráfico
 document.getElementById("generate-graph").addEventListener("click", function(event) {
     event.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
 
-    // Obtiene la columna seleccionada
-    const selectedColumn = document.getElementById("selected_column").value;
-
-    // Enviar el valor seleccionado al servidor para generar el gráfico
+    // Enviar una solicitud para generar el gráfico sin seleccionar columna
     fetch("/generate-graph", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ selected_column: selectedColumn })
+        }
     })
     .then(response => response.json())
     .then(data => {
-        // Mostrar el gráfico devuelto por el servidor
-        const graphDiv = document.getElementById("graph");
-        graphDiv.innerHTML = data.graph_html;
-        graphDiv.style.display = "block"; // Muestra el gráfico
+        // Muestra el gráfico devuelto por el servidor
+        if (data.graph_html) {
+            const graphDiv = document.getElementById("graph");
+            graphDiv.innerHTML = data.graph_html;
+            graphDiv.classList.remove("hidden"); // Muestra el gráfico
+        } else {
+            console.error("Error: ", data.error || "No se pudo generar el gráfico.");
+        }
     })
     .catch(error => {
         console.error("Error al generar el gráfico:", error);

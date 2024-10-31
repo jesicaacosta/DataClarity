@@ -1,60 +1,84 @@
-from flask import Flask, render_template, request, jsonify
-import pandas as pd
-import plotly.express as px
-import plotly.io as pio
+from flask import Flask, render_template, request, jsonify  # Importa las bibliotecas necesarias de Flask
+import pandas as pd  # Importa pandas para manejar datos en DataFrames
+import plotly.express as px  # Importa plotly para la visualización de gráficos
+import plotly.io as pio  # Importa funciones de entrada/salida de plotly
 
-app = Flask(__name__)
+app = Flask(__name__)  # Crea una instancia de la aplicación Flask
 
-# Variable para almacenar el DataFrame cargado
+# Variable global para almacenar el DataFrame cargado
 data = None
 
-@app.route('/')
+@app.route('/')  # Define la ruta principal de la aplicación
 def home():
-    return render_template('index.html')
+    return render_template('index.html')  # Renderiza la plantilla index.html
 
-@app.route('/upload', methods=['POST'])
+@app.route('/upload', methods=['POST'])  # Ruta para manejar la subida de archivos
 def upload_file():
-    global data  # Define data como global para usarlo en otras funciones
+    global data  # Permite acceder a la variable 'data' en otras funciones
 
-    file = request.files['file']
+    file = request.files['file']  # Obtiene el archivo del formulario
     if file.filename == '':
-        return "El archivo no tiene nombre", 400
+        return "Por favor, selecciona un archivo CSV o Excel", 400  # Respuesta de error si no se selecciona un archivo
 
-    # Cargar el archivo CSV en un DataFrame
+    # Carga el archivo CSV en un DataFrame
     data = pd.read_csv(file)
-    data_html = data.head(3).to_html()
-    numeric_columns = data.select_dtypes(include=['number']).columns.tolist()
-    stats = calculate_statistics(data)
+    data_html = data.head(3).to_html()  # Convierte las primeras tres filas del DataFrame a HTML
+    numeric_columns = data.select_dtypes(include=['number']).columns.tolist()  # Obtiene las columnas numéricas
+    stats = calculate_statistics(data)  # Calcula las estadísticas básicas del DataFrame
     
+    # Renderiza de nuevo la plantilla con los datos cargados y las estadísticas
     return render_template('index.html', data=data_html, stats=stats, numeric_columns=numeric_columns)
 
-
-@app.route("/generate-graph", methods=["POST"])
+''' @app.route("/generate-graph", methods=["POST"])  # Ruta para generar gráficos
 def generate_graph():
-    data = pd.read_csv("ruta/a/tu/archivo.csv")  # Reemplaza con la ruta o la variable `data`
-    selected_column = request.json.get("selected_column")
-    
+    global data  # Asegúrate de que 'data' esté disponible
+    selected_column = request.json.get("selected_column")  # Obtiene la columna seleccionada desde la solicitud
+
+
     # Verifica que la columna exista en el DataFrame
     if selected_column in data.columns:
-        fig = px.histogram(data, x=selected_column)
-        graph_html = pio.to_html(fig, full_html=False)
-        return jsonify({"graph_html": graph_html})
+        fig = px.histogram(data, x=selected_column)  # Genera un histograma de la columna seleccionada
+        graph_html = pio.to_html(fig, full_html=False)  # Convierte el gráfico a HTML
+        return jsonify({"graph_html": graph_html})  # Devuelve el HTML del gráfico en formato JSON
 
-    return jsonify({"error": "Columna no válida"}), 400
+    return jsonify({"error": "Columna no válida"}), 400  # Respuesta de error si la columna no es válida'''
+    
+    
+    #funcion que utiliza la primer columnaara entregar un grafiuco
+    
+@app.route("/generate-graph", methods=["POST"])
+def generate_graph():
+    global data  # Usar el DataFrame global que contiene los datos cargados
+        
+        # Verifica que los datos se hayan cargado
+    if data is None:
+        return jsonify({"error": "No hay datos cargados"}), 400
+
+        # Selecciona la primera columna numérica
+    selected_column = data.select_dtypes(include=['number']).columns[0]
+
+        # Genera el gráfico de barras
+    fig = px.histogram(data, x=selected_column)
+    graph_html = pio.to_html(fig, full_html=False)
+        
+    return jsonify({"graph_html": graph_html})
 
 
 
+
+# Función para calcular estadísticas básicas
 def calculate_statistics(data):
-    stats = {}
+    stats = {}  # Inicializa un diccionario para almacenar las estadísticas
     for column in data.select_dtypes(include=['number']).columns:
+        # Calcula y almacena estadísticas para cada columna numérica
         stats[column] = {
-            'count': data[column].count(),
-            'mean': round(data[column].mean(), 2),
-            'std_dev': round(data[column].std(), 2),
-            'min': data[column].min(),
-            'max': data[column].max()
+            'count': data[column].count(),  # Conteo de valores
+            'mean': round(data[column].mean(), 2),  # Media
+            'std_dev': round(data[column].std(), 2),  # Desviación estándar
+            'min': data[column].min(),  # Valor mínimo
+            'max': data[column].max()  # Valor máximo
         }
-    return stats
+    return stats  # Devuelve el diccionario de estadísticas
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True)  # Ejecuta la aplicación en modo depuración
