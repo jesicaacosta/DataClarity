@@ -3,6 +3,7 @@ import pandas as pd  # Importa pandas para manejar datos en DataFrames
 import plotly.express as px  # Importa plotly para la visualización de gráficos
 import plotly.io as pio  # Importa funciones de entrada/salida de plotly
 
+
 app = Flask(__name__)  # Crea una instancia de la aplicación Flask
 
 # Variable global para almacenar el DataFrame cargado
@@ -29,7 +30,7 @@ def upload_file():
     # Renderiza de nuevo la plantilla con los datos cargados y las estadísticas
     return render_template('index.html', data=data_html, stats=stats, numeric_columns=numeric_columns)
 
-''' @app.route("/generate-graph", methods=["POST"])  # Ruta para generar gráficos
+@app.route("/generate-graph", methods=["POST"])  # Ruta para generar gráficos
 def generate_graph():
     global data  # Asegúrate de que 'data' esté disponible
     selected_column = request.json.get("selected_column")  # Obtiene la columna seleccionada desde la solicitud
@@ -39,32 +40,67 @@ def generate_graph():
     if selected_column in data.columns:
         fig = px.histogram(data, x=selected_column)  # Genera un histograma de la columna seleccionada
         graph_html = pio.to_html(fig, full_html=False)  # Convierte el gráfico a HTML
-        return jsonify({"graph_html": graph_html})  # Devuelve el HTML del gráfico en formato JSON
-
-    return jsonify({"error": "Columna no válida"}), 400  # Respuesta de error si la columna no es válida'''
-    
-    
-    #funcion que utiliza la primer columnaara entregar un grafiuco
-    
-@app.route("/generate-graph", methods=["POST"])
-def generate_graph():
-    global data  # Usar el DataFrame global que contiene los datos cargados
+        return jsonify({"graph_html": graph_html})  # Devuelve el HTML del gráfico en formato JSO
+    return jsonify({"error": "Columna no válida"}), 400  # Respuesta de error si la columna no es válida
         
-        # Verifica que los datos se hayan cargado
-    if data is None:
-        return jsonify({"error": "No hay datos cargados"}), 400
 
-        # Selecciona la primera columna numérica
-    selected_column = data.select_dtypes(include=['number']).columns[0]
+# resumen estadstico basico de un DF de pandas
+def calculate_statistics(data):
+    stats = {}
+    for column in data.select_dtypes(include=['number']).columns: # filtra solo las columnas num
+        stats[column] = {
+            'count': data[column].count(),#Cuenta el número de valores no nulos en la columna
+            'mean': round(data[column].mean(), 2),#Calcula promedio y redondea el resultado a dos decimale
+            'std_dev': round(data[column].std(), 2), #Calcula la desviación estándar de los valores de la columna y redondea el resultado a dos decimales."
+            'min': data[column].min(),
+            'max': data[column].max()
+        }
+    return stats 
+#devuelve el diccionario stats que contiene todas las estad calculadas para cada columna num
 
-        # Genera el gráfico de barras
-    fig = px.histogram(data, x=selected_column)
-    graph_html = pio.to_html(fig, full_html=False)
-        
-    return jsonify({"graph_html": graph_html})
-
-
-
+if __name__ == '__main__':
+    app.run(debug=True)
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 # Función para calcular estadísticas básicas
 def calculate_statistics(data):

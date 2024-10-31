@@ -33,6 +33,7 @@
       crossorigin="anonymous"
     ></script>
   </head>
+
   <body>
     <div class="container">
       <!-- Encabezado principal -->
@@ -68,18 +69,21 @@
 
       <!-- Sección para mostrar los datos cargados -->
       {% if data %}
+      <!--verifica en python si la variable data tiene un valo-->
       <div class="data-table">
         <h2 class="mt-4 font-weight-bold">
           Vista previa de los datos cargados:
         </h2>
         <div class="table-responsive">{{ data|safe }}</div>
+        <!-- |safe Jinja2 toma el contenido tal 
+        cual como cog HTML en lugar de convertir los caracteres especiales en texto comun html-->
       </div>
       {% endif %}
 
       <!-- Mostrar estadísticas básicas -->
       {% if stats %}
       <div class="stats-section mt-4">
-        <h2>Estadísticas Básicas:</h2>
+        <h2>📈 Estadísticas Básicas 📈</h2>
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -93,8 +97,11 @@
           </thead>
           <tbody>
             {% for column, values in stats.items() %}
+            <!-- recorre cada par clave-valor del dicc stats-->
             <tr>
+              <!-- nueva fila en la tabla-->
               <td>{{ column }}</td>
+              <!--inserta el nombre de la columna en la primera celda de la fila-->
               <td>{{ values.count }}</td>
               <td>{{ values.mean }}</td>
               <td>{{ values.std_dev }}</td>
@@ -106,41 +113,6 @@
         </table>
       </div>
       {% endif %}
-
-      <!-- Formulario para seleccionar columna para el gráfico -->
-      <div class="columna-selector mt-4">
-        <h3>Selecciona una columna para el gráfico:</h3>
-        <form id="column-form">
-          <label for="selected_column">Columna:</label>
-          <select
-            name="selected_column"
-            id="selected_column"
-            class="form-control"
-          >
-            {% for column in numeric_columns %}
-            <option value="{{ column }}">{{ column }}</option>
-            {% endfor %}
-          </select>
-          <button
-            type="button"
-            id="generate-graph"
-            class="btn btn-primary mt-3"
-          >
-            Generar Gráfico
-          </button>
-        </form>
-      </div>
-
-      <!-- Mostrar el gráfico interactivo si está disponible -->
-      {% if graph %}
-      <div class="graph-section mt-4">
-        <h2>Gráfico Interactivo</h2>
-        <div>{{ graph|safe }}</div>
-      </div>
-      {% endif %}
-
-      <!-- Sección para mostrar el gráfico -->
-      <div id="graph" class="graph-section mt-4 hidden"></div>
 
       <!-- Bootstrap JS y dependencias de Popper -->
       <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
