@@ -23,26 +23,13 @@ def upload_file():
 
     # Carga el archivo CSV en un DataFrame
     data = pd.read_csv(file)
-    data_html = data.head(3).to_html()  # Convierte las primeras tres filas del DataFrame a HTML
+    data_html = data.head(3).to_html()  # Convierte y muestra  las primeras tres filas del DataFrame a HTML
     numeric_columns = data.select_dtypes(include=['number']).columns.tolist()  # Obtiene las columnas numéricas
     stats = calculate_statistics(data)  # Calcula las estadísticas básicas del DataFrame
     
     # Renderiza de nuevo la plantilla con los datos cargados y las estadísticas
     return render_template('index.html', data=data_html, stats=stats, numeric_columns=numeric_columns)
 
-@app.route("/generate-graph", methods=["POST"])  # Ruta para generar gráficos
-def generate_graph():
-    global data  # Asegúrate de que 'data' esté disponible
-    selected_column = request.json.get("selected_column")  # Obtiene la columna seleccionada desde la solicitud
-
-
-    # Verifica que la columna exista en el DataFrame
-    if selected_column in data.columns:
-        fig = px.histogram(data, x=selected_column)  # Genera un histograma de la columna seleccionada
-        graph_html = pio.to_html(fig, full_html=False)  # Convierte el gráfico a HTML
-        return jsonify({"graph_html": graph_html})  # Devuelve el HTML del gráfico en formato JSO
-    return jsonify({"error": "Columna no válida"}), 400  # Respuesta de error si la columna no es válida
-        
 
 # resumen estadstico basico de un DF de pandas
 def calculate_statistics(data):
@@ -58,10 +45,12 @@ def calculate_statistics(data):
     return stats 
 #devuelve el diccionario stats que contiene todas las estad calculadas para cada columna num
 
+
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
-    
-    
     
     
     
