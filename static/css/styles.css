@@ -8,13 +8,15 @@
 */
 
 body {
-  background-color: #dcd6f7;
-  padding: 0 20px;
+  background-color: #edf7d6;
+  padding: 0;
 }
 
 * {
   font-family: "Roboto", serif;
   font-style: normal;
+  margin: 0;
+  padding: 0;
 }
 /* Estilo para el contenedor principal */
 .container {
@@ -201,3 +203,50 @@ h2 {
 }
 
 /* Grafico Contenedor */
+
+/* Navbar */
+
+/* Carousel */
+
+.carousel-inner img {
+  height: 65vh;
+  object-fit: cover;
+}
+
+/* Estilo para el Footer */
+.footer {
+  background-color: #d6e5e3;
+  color: #424874;
+  width: 100%;
+  margin: 0;
+  margin-top: 100px;
+}
+
+.footer .social-icon {
+  color: #fff;
+  font-size: 1.5rem;
+  text-decoration: none;
+  transition: color 0.3s;
+  padding: 5px;
+}
+
+.footer .social-icon:hover {
+  color: #007bff;
+}
+
+.footer p {
+  margin-bottom: 0;
+}
+
+.footer .container {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 767px) {
+  .footer .social-icon {
+    font-size: 1.2rem;
+  }
+}

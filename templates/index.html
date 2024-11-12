@@ -5,15 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inicio - Plataforma de Análisis de Datos</title>
 
-    <!-- Link a Bootstrap para el estilo -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      integrity="sha384-MogjQ8jCn7+vjsHVdABM1T6T3N3Iq9Y5B4zt0zB2j1TvR2Df/KUEJqaBPpaJNUXG"
-      crossorigin="anonymous"
     />
-
-    <!-- Link a estilos personalizados -->
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/styles.css') }}"
@@ -23,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@100..900&family=Roboto:wght@100..900&display=swap"
       rel="stylesheet"
     />
 
@@ -34,14 +29,142 @@
     ></script>
   </head>
 
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#"><img src="" alt="" /></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.html"
+            >Inicio<span class="sr-only">(current)</span></a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#subir_archivo">Subir Archivo</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Ver Informes Cargados</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
   <body>
+    <!-- Carousel -->
+    <div
+      id="carouselExampleIndicators"
+      class="carousel slide mt-1"
+      data-ride="carousel"
+    >
+      <!-- mt es el margin top-->
+      <ol class="carousel-indicators">
+        <li
+          data-target="#carouselExampleIndicators"
+          data-slide-to="0"
+          class="active"
+        ></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img
+            src="{{ url_for('static', filename='images/a.jpg') }}"
+            class="d-block w-100"
+            alt="..."
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Sube tus datos</h5>
+            <p>Comienza a analizar en segundos.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img
+            src="{{ url_for('static', filename='images/b.jpg') }}"
+            class="d-block w-100"
+            alt="..."
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Visualizaciones Interactivas</h5>
+            <p>Obtén gráficos y estadísticas claras.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img
+            src="{{ url_for('static', filename='images/c.jpg') }}"
+            class="d-block w-100"
+            alt="..."
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Descarga Resultados</h5>
+            <p>Exporta tus análisis fácilmente.</p>
+          </div>
+        </div>
+      </div>
+
+      <a
+        class="carousel-control-prev"
+        href="#carouselExampleIndicators"
+        role="button"
+        data-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Anterior</span>
+      </a>
+      <a
+        class="carousel-control-next"
+        href="#carouselExampleIndicators"
+        role="button"
+        data-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Siguiente</span>
+      </a>
+    </div>
+
+    <!-- Quienes somos -->
+    <section class="features py-5">
+      <div class="container text-center">
+        <h2 class="mb-4">¿Por qué elegir DataClarity?</h2>
+        <div class="row">
+          <div class="col-md-4">
+            <i class="fas fa-chart-line fa-3x text-primary mb-3"></i>
+            <h5>Visualizaciones Interactivas</h5>
+            <p>
+              Transforma tus datos en gráficos comprensibles con un solo clic.
+            </p>
+          </div>
+          <div class="col-md-4">
+            <i class="fas fa-file-upload fa-3x text-success mb-3"></i>
+            <h5>Subida Fácil de Archivos</h5>
+            <p>Sube tus archivos CSV y obtén análisis al instante.</p>
+          </div>
+          <div class="col-md-4">
+            <i class="fas fa-cloud-upload-alt fa-3x text-warning mb-3"></i>
+            <h5>Copias de Seguridad</h5>
+            <p>Guarda y respalda tus datos de manera segura en Google Drive.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <div class="container">
       <!-- Encabezado principal -->
       <div class="text-center mb-4">
-        <h1 class="animate__rubberBand">Plataforma de Análisis de Datos</h1>
-        <p class="lead">
-          Subí un archivo CSV y analiza tus datos de manera rápida y sencilla.
-        </p>
+        <h1 class="animate__rubberBand" id="subir_archivo">
+          Subí acá tu archivo
+        </h1>
+        <p class="lead">Subí un archivo CSV</p>
       </div>
 
       <!-- Contenedor de formulario para subir archivos -->
@@ -57,8 +180,6 @@
               id="file-upload"
               accept=".csv"
               class="form-control-file"
-              title="Subir archivo CSV"
-              aria-label="Subir archivo CSV"
             />
           </div>
           <button type="submit" class="btn btn-upload btn-block mt-3">
@@ -69,14 +190,11 @@
 
       <!-- Sección para mostrar los datos cargados -->
       {% if data %}
-      <!--verifica en python si la variable data tiene un valo-->
       <div class="data-table">
         <h2 class="mt-4 font-weight-bold">
           Vista previa de los datos cargados:
         </h2>
         <div class="table-responsive">{{ data|safe }}</div>
-        <!-- |safe Jinja2 toma el contenido tal 
-        cual como cog HTML en lugar de convertir los caracteres especiales en texto comun html-->
       </div>
       {% endif %}
 
@@ -97,11 +215,8 @@
           </thead>
           <tbody>
             {% for column, values in stats.items() %}
-            <!-- recorre cada par clave-valor del dicc stats-->
             <tr>
-              <!-- nueva fila en la tabla-->
               <td>{{ column }}</td>
-              <!--inserta el nombre de la columna en la primera celda de la fila-->
               <td>{{ values.count }}</td>
               <td>{{ values.mean }}</td>
               <td>{{ values.std_dev }}</td>
@@ -113,13 +228,35 @@
         </table>
       </div>
       {% endif %}
-
-      <!-- Bootstrap JS y dependencias de Popper -->
-      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-      <script src="{{ url_for('static', filename='js/app.js') }}"></script>
-      <!-- Link al archivo JS -->
     </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <!-- Sección de texto -->
+          <div class="col-md-4">
+            <p class="mb-0">
+              &copy; 2024 DataClarity. Todos los derechos reservados.
+            </p>
+          </div>
+          <!-- Sección de enlaces a redes sociales -->
+          <div class="col-md-4 text-md-center">
+            <p>Seguinos en nuestras redes!</p>
+            <a href="#" class="social-icon"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS y dependencias de Popper -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
   </body>
 </html>

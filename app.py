@@ -11,7 +11,7 @@ data = None
 
 @app.route('/')  # Define la ruta principal de la aplicación
 def home():
-    return render_template('index.html')  # Renderiza la plantilla index.html
+    return render_template('index.html')  # Renderiza/llama la plantilla index.html
 
 @app.route('/upload', methods=['POST'])  # Ruta para manejar la subida de archivos
 def upload_file():
