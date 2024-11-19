@@ -1,15 +1,15 @@
-from flask import Flask, render_template, request, jsonify  # Importa las bibliotecas necesarias de Flask
-import pandas as pd  # Importa pandas para manejar datos en DataFrames
-import plotly.express as px  # Importa plotly para la visualización de gráficos
-import plotly.io as pio  # Importa funciones de entrada/salida de plotly
+from flask import Flask, render_template, request, jsonify  # bibliotecas de Flask
+import pandas as pd  #
+import plotly.express as px  #  plotly para la visualizacion de grafuicos
+import plotly.io as pio  # funciones de entrada/salida de plotly
 
 
-app = Flask(__name__)  # Crea una instancia de la aplicación Flask
+app = Flask(__name__)  # crea una instancia de la aplicacion Flask
 
-# Variable global para almacenar el DataFrame cargado
+# Variable global para almacenar el df cargado
 data = None
 
-@app.route('/')  # Define la ruta principal de la aplicación
+@app.route('/')  #  ruta principal de la app
 def home():
     return render_template('index.html')  # Renderiza/llama la plantilla index.html
 
@@ -23,11 +23,11 @@ def upload_file():
 
     # Carga el archivo CSV en un DataFrame
     data = pd.read_csv(file)
-    data_html = data.head(3).to_html()  # Convierte y muestra  las primeras tres filas del DataFrame a HTML
-    numeric_columns = data.select_dtypes(include=['number']).columns.tolist()  # Obtiene las columnas numéricas
-    stats = calculate_statistics(data)  # Calcula las estadísticas básicas del DataFrame
+    data_html = data.head(3).to_html()  # Convierte a html y muestra  las primeras tres filas del df subido
+    numeric_columns = data.select_dtypes(include=['number']).columns.tolist()  # Obtiene las columnas nmericas
+    stats = calculate_statistics(data)  # Calcula las estadisticas basicas del df
     
-    # Renderiza de nuevo la plantilla con los datos cargados y las estadísticas
+    # renderiza de nuevo la plantilla con los datos cargados y las estadisticas
     return render_template('index.html', data=data_html, stats=stats, numeric_columns=numeric_columns)
 
 
@@ -36,9 +36,9 @@ def calculate_statistics(data):
     stats = {}
     for column in data.select_dtypes(include=['number']).columns: # filtra solo las columnas num
         stats[column] = {
-            'count': data[column].count(),#Cuenta el número de valores no nulos en la columna
-            'mean': round(data[column].mean(), 2),#Calcula promedio y redondea el resultado a dos decimale
-            'std_dev': round(data[column].std(), 2), #Calcula la desviación estándar de los valores de la columna y redondea el resultado a dos decimales."
+            'count': data[column].count(),#cuenta el nro de valores no nulos en la columna
+            'mean': round(data[column].mean(), 2),#calcula promedio y redondea el resultado a 2 decimale
+            'std_dev': round(data[column].std(), 2), #calcula la desviación estand de los valores de la columna y redondea el resultado a dos decimales
             'min': data[column].min(),
             'max': data[column].max()
         }
@@ -47,55 +47,35 @@ def calculate_statistics(data):
 
 
 
+'''
+
+1- grafico x
+2- grafico y
+3- onmbre para el grafico x
+4- onmbre para el grafico y
+5- 
+
+
+
+def view_statistics(data):
+     for column in data.select_dtypes(include=['number']).columns: # filtra solo las columnas num
+        stats[column] = {
+        }
+    return grafico''' 
 
 
 if __name__ == '__main__':
     app.run(debug=True)
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    ''' 
+ 
 
-# Función para calcular estadísticas básicas
+#funcion pa aestadistica sbasicas
 def calculate_statistics(data):
-    stats = {}  # Inicializa un diccionario para almacenar las estadísticas
+    stats = {}  # Inicializa un diccionario para almacenar las estadist
     for column in data.select_dtypes(include=['number']).columns:
-        # Calcula y almacena estadísticas para cada columna numérica
+        # Calcula y almacena estadist para cada columna nnmerica
         stats[column] = {
             'count': data[column].count(),  # Conteo de valores
             'mean': round(data[column].mean(), 2),  # Media
@@ -107,3 +87,5 @@ def calculate_statistics(data):
 
 if __name__ == '__main__':
     app.run(debug=True)  # Ejecuta la aplicación en modo depuración
+
+'''

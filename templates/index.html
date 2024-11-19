@@ -214,7 +214,7 @@
             </tr>
           </thead>
           <tbody>
-            {% for column, values in stats.items() %}
+            {% for column, values in stats.items() %} <!-- Columnas -->
             <tr>
               <td>{{ column }}</td>
               <td>{{ values.count }}</td>
@@ -229,6 +229,11 @@
       </div>
       {% endif %}
     </div>
+
+    <!-- Mostrar seccion graficos -->
+
+
+
 
     <!-- Footer -->
     <footer class="footer">
