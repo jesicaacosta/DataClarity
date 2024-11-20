@@ -147,7 +147,7 @@
           <div class="col-md-4">
             <i class="fas fa-file-upload fa-3x text-success mb-3"></i>
             <h5>Subida Fácil de Archivos</h5>
-            <p>Sube tus archivos CSV y obtén análisis al instante.</p>
+            <p>Subí tus archivos CSV y obtené análisis al instante.</p>
           </div>
           <div class="col-md-4">
             <i class="fas fa-cloud-upload-alt fa-3x text-warning mb-3"></i>
@@ -198,13 +198,14 @@
       </div>
       {% endif %}
 
-      <!-- Mostrar estadísticas básicas -->
+      <!-- Mostrar estadisticas basicas -->
       {% if stats %}
       <div class="stats-section mt-4">
         <h2>📈 Estadísticas Básicas 📈</h2>
         <table class="table table-bordered">
           <thead>
             <tr>
+              <!-- Nombres de las columnas -->
               <th>Columna</th>
               <th>Conteo</th>
               <th>Media</th>
@@ -214,8 +215,10 @@
             </tr>
           </thead>
           <tbody>
-            {% for column, values in stats.items() %} <!-- Columnas -->
+            {% for column, values in stats.items() %}
+            <!--Recorro stats Columnas -->
             <tr>
+              <!-- Valores de las columnas -->
               <td>{{ column }}</td>
               <td>{{ values.count }}</td>
               <td>{{ values.mean }}</td>
@@ -228,11 +231,69 @@
         </table>
       </div>
       {% endif %}
+    
+
+
+
+
+
+      <!-- Mostrar seccion graficos -->
+{% if numeric_columns %}
+<div class="graph-section mt-4">
+  <h2>📊 Generar Gráficos 📊</h2>
+    <p>Selecciona las columnas para generar gráficos personalizados. El gráfico de dispersión es ideal para visualizar la relación entre dos variables numéricas, mientras que el gráfico de barras muestra la comparación de valores agrupados.</p>
+  <form action="/generate-graph" method="POST">
+    <div class="form-group">
+        <label for="x-column">Selecciona columna X (Eje Horizontal):</label>
+        <select name="x_column" id="x-column" class="form-control">
+            {% for col in all_columns %}
+            <option value="{{ col }}">{{ col }}</option>
+            {% endfor %}
+        </select>
     </div>
 
-    <!-- Mostrar seccion graficos -->
+    <div class="form-group">
+        <label for="y-column">Selecciona columna Y (Eje Vertical):</label>
+        <select name="y_column" id="y-column" class="form-control">
+            {% for col in numeric_columns %}
+            <option value="{{ col }}">{{ col }}</option>
+            {% endfor %}
+        </select>
+    </div>
 
+    <button type="submit" class="btn btn-primary btn-block">Generar Gráfico</button>
+</form>
 
+</div>
+{% endif %}
+
+<!-- Mostrar el primer gráfico si está disponible -->
+{% if graph1 %}
+<div class="graph-result mt-4">
+  <h3>Gráfico de Dispersión:</h3>
+    <p>Este gráfico muestra cómo las variables seleccionadas están relacionadas. Cada punto representa una observación en tu conjunto de datos.</p>
+  <div>{{ graph1|safe }}</div>
+</div>
+{% endif %}
+
+<!-- Mostrar el segundo grafico si est disponible -->
+{% if graph2 %}
+<div class="graph-result mt-4">
+  <h3> Gráfico de Barras:</h3>
+    <p>El gráfico de barras muestra la comparación de valores para las categorías seleccionadas. Es útil para observar distribuciones o totales.</p>
+
+  <div>{{ graph2|safe }}</div>
+</div>
+{% endif %}
+
+<!-- Mostrar el tercer grafico si est disponible -->
+
+{% if graph3%}
+<div>
+    <h3>Gráfico de Sectores</h3>
+    <div>{{ graph3|safe }}</div>
+</div>
+{% endif %}
 
 
     <!-- Footer -->
