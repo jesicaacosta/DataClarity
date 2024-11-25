@@ -1,3 +1,8 @@
+* {
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+}
+
 /* Establecer una tipografía moderna */
 body {
   font-family: "Roboto", sans-serif;
@@ -7,32 +12,52 @@ body {
   padding: 0;
 }
 
-/* Encabezados (h1) más pequeños */
+/* todos los h1 */
 h1 {
-  font-size: 2rem;
+  font-size: 1.6rem;
+    font-family: "Parkinsans", sans-serif;
   color: #003366;
   margin-bottom: 20px;
 }
 
+h2 {
+  font-size: 1.4rem;
+    font-family: "Parkinsans", sans-serif;
+  color: #f58404;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 1.2em;
+    font-family: "Parkinsans", sans-serif;
+  color: #d64a00;
+}
+
 /* Estilos para la tabla */
 table {
-  width: 100%;
+  width: 80%;
   margin-top: 20px;
   border-collapse: collapse;
 }
 
 th,
 td {
-  padding: 12px;
-  text-align: left;
+  padding: 2px 4px;
   border-bottom: 1px solid #ddd;
 }
 
 th {
   background-color: #003366;
+  font-family: "Parkinsans", sans-serif;
   color: #fff;
+  font-size: 1em;
+  font-weight: 100;
+  text-align: left;
 }
-
+td{
+  font-size: .9em;
+  text-align: center;
+}
 tr:nth-child(even) {
   background-color: #f9f9f9;
 }
@@ -42,7 +67,7 @@ tr:hover {
 }
 
 /* Botones */
-button {
+.button_standar {
   background-color: #007bff; /* Azul claro */
   color: white;
   border: none;
@@ -52,19 +77,32 @@ button {
   border-radius: 5px;
 }
 
-button:hover {
-  background-color: #0056b3;
+
+.button_success {
+  background-color: #f8a649;
+  width: 100%;
 }
+.button_success:hover {
+  background-color: #f58404;
+}
+
 
 /* Footer */
 footer {
   background-color: #003366;
   color: #fff;
   text-align: center;
-  padding: 20px 0;
   font-size: 1rem;
   width: 100%;
+  margin-top: 100px;
+  padding: 10px;
 }
+
+.social-icon {
+  font-size: 1.2em;
+  color: #fff;
+}
+
 
 /* Sección de gráficos */
 .graph-container {
@@ -82,7 +120,7 @@ footer {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Mejorar las estadísticas básicas */
+/*  estadísticas básicas */
 .stat-table {
   margin-top: 30px;
   border-radius: 8px;
@@ -91,9 +129,9 @@ footer {
 
 .stat-table th,
 .stat-table td {
-  padding: 15px;
+  padding: 5px;
   text-align: center;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .stat-table th {
@@ -109,10 +147,6 @@ footer {
   background-color: #f1f1f1;
 }
 
-/* General */
-.container {
-  padding: 30px;
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
+.graph-result {
+  border-radius: 10px;
 }

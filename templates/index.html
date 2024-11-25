@@ -1,299 +1,219 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Inicio - Plataforma de Análisis de Datos</title>
 
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/styles.css') }}"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inicio - Plataforma de Análisis de Datos</title>
 
-    <!-- Fuentes -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Raleway:wght@100..900&family=Roboto:wght@100..900&display=swap"
-      rel="stylesheet"
-    />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
 
-    <!-- Font Awesome para iconos -->
-    <script
-      src="https://kit.fontawesome.com/7d4a6c3747.js"
-      crossorigin="anonymous"
-    ></script>
-  </head>
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100..900&family=Roboto:wght@100..900&display=swap"
+    rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#"><img src="" alt="" /></a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="index.html"
-            >Inicio<span class="sr-only">(current)</span></a
-          >
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#subir_archivo">Subir Archivo</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Ver Informes Cargados</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
 
-  <body>
-    <!-- Carousel -->
-    <div
-      id="carouselExampleIndicators"
-      class="carousel slide mt-1"
-      data-ride="carousel"
-    >
-      <!-- mt es el margin top-->
-      <ol class="carousel-indicators">
-        <li
-          data-target="#carouselExampleIndicators"
-          data-slide-to="0"
-          class="active"
-        ></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-      </ol>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img
-            src="{{ url_for('static', filename='images/a.jpg') }}"
-            class="d-block w-100"
-            alt="..."
-          />
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Sube tus datos</h5>
-            <p>Comienza a analizar en segundos.</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img
-            src="{{ url_for('static', filename='images/b.jpg') }}"
-            class="d-block w-100"
-            alt="..."
-          />
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Visualizaciones Interactivas</h5>
-            <p>Obtén gráficos y estadísticas claras.</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img
-            src="{{ url_for('static', filename='images/c.jpg') }}"
-            class="d-block w-100"
-            alt="..."
-          />
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Descarga Resultados</h5>
-            <p>Exporta tus análisis fácilmente.</p>
-          </div>
+  <!-- Font Awesome para iconos -->
+  <script src="https://kit.fontawesome.com/7d4a6c3747.js" crossorigin="anonymous"></script>
+
+  <!-- Enlace al archivo CSS de Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <a class="navbar-brand" href="#"><img src="" alt="" /></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="index.html">Inicio<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#subir_archivo">Subir Archivo</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="graficos.html">Ver Informes Cargados</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<body>
+  <!-- Carousel -->
+  <div id="carouselExampleIndicators" class="carousel slide mt-1" data-ride="carousel">
+    <!-- mt es el margin top-->
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{{ url_for('static', filename='images/a.jpg') }}" class="d-block w-100" alt="..." />
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Sube tus datos</h5>
+          <p>Comienza a analizar en segundos.</p>
         </div>
       </div>
-
-      <a
-        class="carousel-control-prev"
-        href="#carouselExampleIndicators"
-        role="button"
-        data-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Anterior</span>
-      </a>
-      <a
-        class="carousel-control-next"
-        href="#carouselExampleIndicators"
-        role="button"
-        data-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Siguiente</span>
-      </a>
+      <div class="carousel-item">
+        <img src="{{ url_for('static', filename='images/b.jpg') }}" class="d-block w-100" alt="..." />
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Visualizaciones Interactivas</h5>
+          <p>Obtén gráficos y estadísticas claras.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="{{ url_for('static', filename='images/c.jpg') }}" class="d-block w-100" alt="..." />
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Descarga Resultados</h5>
+          <p>Exporta tus análisis fácilmente.</p>
+        </div>
+      </div>
     </div>
 
-    <!-- Quienes somos -->
-    <section class="features py-5">
-      <div class="container text-center">
-        <h2 class="mb-4">¿Por qué elegir DataClarity?</h2>
-        <div class="row">
-          <div class="col-md-4">
-            <i class="fas fa-chart-line fa-3x text-primary mb-3"></i>
-            <h5>Visualizaciones Interactivas</h5>
-            <p>
-              Transforma tus datos en gráficos comprensibles con un solo clic.
-            </p>
-          </div>
-          <div class="col-md-4">
-            <i class="fas fa-file-upload fa-3x text-success mb-3"></i>
-            <h5>Subida Fácil de Archivos</h5>
-            <p>Subí tus archivos CSV y obtené análisis al instante.</p>
-          </div>
-          <div class="col-md-4">
-            <i class="fas fa-cloud-upload-alt fa-3x text-warning mb-3"></i>
-            <h5>Copias de Seguridad</h5>
-            <p>Guarda y respalda tus datos de manera segura en Google Drive.</p>
-          </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Anterior</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Siguiente</span>
+    </a>
+  </div>
+
+  <!-- Quienes somos -->
+  <section class="features py-5">
+    <div class="container text-center">
+      <h2 class="mb-4">¿Por qué elegir DataClarity?</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <i class="fas fa-chart-line fa-3x text-primary mb-3"></i>
+          <h5>Visualizaciones Interactivas</h5>
+          <p>
+            Transforma tus datos en gráficos comprensibles con un solo clic.
+          </p>
+        </div>
+        <div class="col-md-4">
+          <i class="fas fa-file-upload fa-3x text-success mb-3"></i>
+          <h5>Subida Fácil de Archivos</h5>
+          <p>Subí tus archivos CSV y obtené análisis al instante.</p>
+        </div>
+        <div class="col-md-4">
+          <i class="fas fa-cloud-upload-alt fa-3x text-warning mb-3"></i>
+          <h5>Copias de Seguridad</h5>
+          <p>Guarda y respalda tus datos de manera segura en Google Drive.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <div class="container">
-      <!-- Encabezado principal -->
-      <div class="text-center mb-4">
-        <h1 class="animate__rubberBand" id="subir_archivo">
-          Subí acá tu archivo
-        </h1>
-        <p class="lead">Subí un archivo CSV</p>
-      </div>
+  <div class="container">
+    <!-- Encabezado principal -->
+    <div class="text-center mb-4">
+      <h2 class="animate__rubberBand" id="subir_archivo">
+        Subí acá tu archivo
+      </h2>
+    </div>
 
-      <!-- Contenedor de formulario para subir archivos -->
-      <div class="form-container">
-        <form action="/upload" method="POST" enctype="multipart/form-data">
-          <div class="form-group">
-            <label for="file-upload" class="font-weight-bold"
-              >📍Busca tu archivo CSV:</label
-            >
-            <input
-              type="file"
-              name="file"
-              id="file-upload"
-              accept=".csv"
-              class="form-control-file"
-            />
-          </div>
-          <button type="submit" class="btn btn-upload btn-block mt-3">
-            Subir y analizar
-          </button>
-        </form>
-      </div>
+    <!-- Contenedor de formulario para subir archivos -->
+    <div class="form-container">
+      <form action="/upload" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="file-upload" class="font-weight-bold button_buscar">📍Busca tu archivo CSV:</label>
+          <input type="file" name="file" id="file-upload" accept=".csv" class="form-control-file" />
+        </div>
+        <button type="submit" class="button_success">
+          Subir y analizar
+        </button>
+      </form>
+    </div>
 
-      <!-- Sección para mostrar los datos cargados -->
-      {% if data %}
-      <div class="data-table">
-        <h2 class="mt-4 font-weight-bold">
-          Vista previa de los datos cargados:
-        </h2>
-        <div class="table-responsive">{{ data|safe }}</div>
-      </div>
-      {% endif %}
+    <!-- Sección para mostrar los datos cargados -->
+    {% if data %}
+    <div class="data-table">
+      <h3 class="mt-4 font-weight-bold">
+        Vista previa de los datos cargados:
+      </h3>
+      <div class="table-responsive">{{ data|safe }}</div>
+    </div>
+    {% endif %}
 
-      <!-- Mostrar estadisticas basicas -->
-      {% if stats %}
-      <div class="stats-section mt-4">
-        <h2>📈 Estadísticas Básicas 📈</h2>
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <!-- Nombres de las columnas -->
-              <th>Columna</th>
-              <th>Conteo</th>
-              <th>Media</th>
-              <th>Desviación Estándar</th>
-              <th>Valor Mínimo</th>
-              <th>Valor Máximo</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for column, values in stats.items() %}
-            <!--Recorro stats Columnas -->
-            <tr>
-              <!-- Valores de las columnas -->
-              <td>{{ column }}</td>
-              <td>{{ values.count }}</td>
-              <td>{{ values.mean }}</td>
-              <td>{{ values.std_dev }}</td>
-              <td>{{ values.min }}</td>
-              <td>{{ values.max }}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-      {% endif %}
-    
+    <!-- Mostrar estadisticas basicas -->
+    {% if stats %}
+    <div class="stats-section">
+      <h2>📈 Estadísticas Básicas 📈</h2>
+      <table class="table table-responsive">
+        <thead>
+          <tr>
+            <!-- Nombres de las columnas -->
+            <th>Columna</th>
+            <th>Conteo</th>
+            <th>Media</th>
+            <th>Desviación Estándar</th>
+            <th>Valor Mínimo</th>
+            <th>Valor Máximo</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for column, values in stats.items() %}
+          <!--Recorro stats Columnas -->
+          <tr>
+            <!-- Valores de las columnas -->
+            <td>{{ column }}</td>
+            <td>{{ values.count }}</td>
+            <td>{{ values.mean }}</td>
+            <td>{{ values.std_dev }}</td>
+            <td>{{ values.min }}</td>
+            <td>{{ values.max }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
 
 
-
-
-
-      <!-- Mostrar seccion graficos -->
-{% if numeric_columns %}
-<div class="graph-section mt-4">
-  <h2>📊 Generar Gráficos 📊</h2>
-    <p>Selecciona las columnas para generar gráficos personalizados. El gráfico de dispersión es ideal para visualizar la relación entre dos variables numéricas, mientras que el gráfico de barras muestra la comparación de valores agrupados.</p>
-  <form action="/generate-graph" method="POST">
-    <div class="form-group">
-        <label for="x-column">Selecciona columna X (Eje Horizontal):</label>
-        <select name="x_column" id="x-column" class="form-control">
+ <!-- Mostrar seccion graficos -->
+    {% if numeric_columns %}
+    <div class="graph-section mt-4">
+      <h2>📊 Generar Gráficos 📊</h2>
+      <p>Selecciona las columnas para generar gráficos personalizados.
+        Se te moestrara: un grafico de dispersión, de barras y de sectores. </p>
+      <form action="/generate-graph" method="POST">
+        <div class="form-group">
+          <label for="x-column">Selecciona columna X (Eje Horizontal):</label>
+          <select name="x_column" id="x-column" class="form-control">
             {% for col in all_columns %}
             <option value="{{ col }}">{{ col }}</option>
             {% endfor %}
-        </select>
-    </div>
+          </select>
+        </div>
 
-    <div class="form-group">
-        <label for="y-column">Selecciona columna Y (Eje Vertical):</label>
-        <select name="y_column" id="y-column" class="form-control">
+        <div class="form-group">
+          <label for="y-column">Selecciona columna Y (Eje Vertical):</label>
+          <select name="y_column" id="y-column" class="form-control">
             {% for col in numeric_columns %}
             <option value="{{ col }}">{{ col }}</option>
             {% endfor %}
-        </select>
+          </select>
+        </div>
+        <button type="submit" class="success button_standar">Generar Gráfico</button>
+      </form>
     </div>
-
-    <button type="submit" class="btn btn-primary btn-block">Generar Gráfico</button>
-</form>
-
-</div>
-{% endif %}
-
-<!-- Mostrar el primer gráfico si está disponible -->
-{% if graph1 %}
-<div class="graph-result mt-4">
-  <h3>Gráfico de Dispersión:</h3>
-    <p>Este gráfico muestra cómo las variables seleccionadas están relacionadas. Cada punto representa una observación en tu conjunto de datos.</p>
-  <div>{{ graph1|safe }}</div>
-</div>
-{% endif %}
-
-<!-- Mostrar el segundo grafico si est disponible -->
-{% if graph2 %}
-<div class="graph-result mt-4">
-  <h3> Gráfico de Barras:</h3>
-    <p>El gráfico de barras muestra la comparación de valores para las categorías seleccionadas. Es útil para observar distribuciones o totales.</p>
-
-  <div>{{ graph2|safe }}</div>
-</div>
-{% endif %}
-
-<!-- Mostrar el tercer grafico si est disponible -->
-
-{% if graph3%}
-<div>
-    <h3>Gráfico de Sectores</h3>
-    <div>{{ graph3|safe }}</div>
-</div>
-{% endif %}
+    {% endif %}
+  </div>
 
 
     <!-- Footer -->
@@ -309,9 +229,7 @@
           <!-- Sección de enlaces a redes sociales -->
           <div class="col-md-4 text-md-center">
             <p>Seguinos en nuestras redes!</p>
-            <a href="#" class="social-icon"
-              ><i class="fab fa-facebook-f"></i
-            ></a>
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
             <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
             <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
           </div>
@@ -324,5 +242,6 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
-  </body>
+</body>
+
 </html>
