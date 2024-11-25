@@ -14,10 +14,12 @@ body {
 
 /* todos los h1 */
 h1 {
-  font-size: 1.6rem;
-    font-family: "Parkinsans", sans-serif;
-  color: #003366;
+  font-size: 1.9rem;
+  font-family: "Parkinsans", sans-serif;
+  color: #66bb66;
   margin-bottom: 20px;
+  text-align: center;
+  padding: 10px;
 }
 
 h2 {
@@ -33,63 +35,37 @@ h3 {
   color: #d64a00;
 }
 
-/* Estilos para la tabla */
-table {
-  width: 80%;
-  margin-top: 20px;
-  border-collapse: collapse;
+section {
+  padding: 30px;
 }
 
-th,
-td {
-  padding: 2px 4px;
-  border-bottom: 1px solid #ddd;
-}
 
-th {
-  background-color: #003366;
-  font-family: "Parkinsans", sans-serif;
-  color: #fff;
-  font-size: 1em;
-  font-weight: 100;
-  text-align: left;
-}
-td{
-  font-size: .9em;
-  text-align: center;
-}
-tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-tr:hover {
-  background-color: #f1f1f1;
-}
 
 /* Botones */
-.button_standar {
-  background-color: #007bff; /* Azul claro */
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
 
 .button_success {
-  background-color: #f8a649;
+  background-color: #ffde59;
+  height: 2.5em;
   width: 100%;
+  border: 2px solid #fff;
 }
 .button_success:hover {
   background-color: #f58404;
 }
 
+/* GENERAR GRAFICOS */
+
+.graph-section {
+  background-color: #fff;
+  border: 3px solid #66bb66;
+}
+
+
+
 
 /* Footer */
 footer {
-  background-color: #003366;
+  background-color: #0099cc ;
   color: #fff;
   text-align: center;
   font-size: 1rem;
@@ -120,33 +96,50 @@ footer {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/*  estadísticas básicas */
-.stat-table {
-  margin-top: 30px;
-  border-radius: 8px;
-  overflow: hidden;
+
+/* Estilos para las tabla */
+
+.data-table{
+  margin-top: 80px;
+}
+table {
+  width: 90%;
+  margin: 20px 5px;
+  border-collapse: collapse;
 }
 
-.stat-table th,
-.stat-table td {
-  padding: 5px;
+th,
+td {
+  padding: 2px 4px;
+  border-bottom: 1px solid #ddd;
+}
+
+
+td{
+  font-size: .9em;
   text-align: center;
-  font-size: 1rem;
 }
-
-.stat-table th {
-  background-color: #003366;
-  color: white;
-}
-
-.stat-table tr:nth-child(even) {
+tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-.stat-table tr:hover {
+tr:hover {
   background-color: #f1f1f1;
 }
 
-.graph-result {
-  border-radius: 10px;
+.table-responsive th {
+  background-color: #f8a649;
+  font-family: "Parkinsans", sans-serif;
+  font-weight: 300;
+  color: #fff;
+  font-size: 1em;
+  text-align: center;
+  padding: 3px 6px;
+  border: 1px solid wheat;
+}
+
+
+
+body > div {
+  padding: 30px;
 }
