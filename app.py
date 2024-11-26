@@ -19,11 +19,20 @@ def upload_file():
     if file.filename == '':
         return "Por favor, selecciona un archivo CSV o Excel", 400
 
-    #lee el archivo
+    #Leer el archivo
     data = pd.read_csv(file)
     data_html = data.head(5).to_html()
     numeric_columns = data.select_dtypes(include=['number']).columns.tolist() #solo selecciona columnas numericas
-    all_columns = data.columns.tolist()
+    all_columns = data.columns.tolist() #lista de todas las columnas
+
+
+    #Limpieza de datos
+    nulos= data.isnull().sum()
+
+    if nulos.any():  #  si hay nulos en la vaiable nulos
+        for column in numeric_columns:  # Itera sobre cada elemen numeric columns
+            data[column] = data[column].fillna(data[column].mean())  # Reemplaza los valores nulos con la media del df original
+
 
     # Calcula las estadísticas del DataFrame cargado
     stats = calculate_statistics(data)
