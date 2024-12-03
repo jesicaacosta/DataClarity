@@ -1,0 +1,20 @@
+ El argumento include=['object'] le dice a pandas que filtre solo
+ aquellas columnas cuyo tipo de datos sea de tipo "object". 
+ En pandas, el tipo object generalmente se utiliza para representar 
+ cadenas de texto (strings) u otros tipos no numéricos 
+ (aunque también podría incluir otros tipos, como listas o 
+ diccionarios, dependiendo de los datos). 
+
+
+.tolist(): Esta función convierte el índice de columnas 
+en una lista de Python
+
+return render_template('index.html', 
+aaaa=aaaa)
+Esta línea está dentro de una función de Flask que maneja la
+respuesta a la solicitud HTTP. Lo que hace es renderizar una 
+plantilla HTML y pasarle datos dinámicos. Tambijn se pása la
+variable aaaaa para poder utilizarla en el HTML. 
+
+
+

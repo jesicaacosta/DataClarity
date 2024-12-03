@@ -24,8 +24,8 @@ def upload_file():
     data_html = data.head(5).to_html()
     numeric_columns = data.select_dtypes(include=['number']).columns.tolist() #solo selecciona columnas numericas
     all_columns = data.columns.tolist() #lista de todas las columnas
-
-
+    categorical_columns = data.select_dtypes(include=['object']).columns.tolist()  # columnas no numricas
+    
     #Limpieza de datos
     nulos= data.isnull().sum()
 
@@ -34,14 +34,15 @@ def upload_file():
             data[column] = data[column].fillna(data[column].mean())  # Reemplaza los valores nulos con la media del df original
 
 
-    # Calcula las estadísticas del DataFrame cargado
+    # llama funcion las estadist del DF cargado
     stats = calculate_statistics(data)
-
+    
     return render_template(
         'index.html', 
         data=data_html, 
         stats=stats, 
         numeric_columns=numeric_columns, # columnasn numericas
+        categorical_columns=categorical_columns,  # Añadimos las columnas categóricas
         all_columns=all_columns  
     )
 
@@ -57,40 +58,68 @@ def calculate_statistics(data):
         }
     return stats
 
+
+@app.route('/select-graph', methods=['POST'])
+def select_graph():
+    global data
+    if data is None:
+        return "No hay datos cargados", 400
+
+    graph_type = request.form.get('graph_type')
+    numeric_columns = data.select_dtypes(include=['number']).columns.tolist()
+    categorical_columns = data.select_dtypes(include=['object']).columns.tolist()
+
+    return render_template(
+        'index.html',
+        graph_type=graph_type,
+        numeric_columns=numeric_columns,
+        all_columns=data.columns.tolist(),
+        categorical_columns=categorical_columns,
+        data=data.head(5).to_html()
+    )
+
+
+
 @app.route('/generate-graph', methods=['POST'])
 def generate_graph():
     global data
     if data is None:
         return "No hay datos cargados", 400
 
-    x_column = request.form['x_column']
-    y_column = request.form['y_column']
+    graph_type = request.form.get('graph_type')
+    x_column = request.form.get('x_column')
+    y_column = request.form.get('y_column') if graph_type != 'pie' else None
 
-    if x_column not in data.columns or y_column not in data.columns:
-        return "Columnas seleccionadas no válidas", 400
+    if not x_column:
+        return "Por favor, selecciona una columna para el eje X", 400
 
-    # Gráfico de dispersión
-    fig1 = px.scatter(data, x=x_column, y=y_column, title=f'Gráfico de Dispersión {x_column} vs {y_column}')
-    graph_html1 = pio.to_html(fig1, full_html=False)
-    
-    # Gráfico de barras
-    fig2 = px.bar(data, x=x_column, y=y_column, title=f'Gráfico de Barras {x_column} vs {y_column}', color=y_column)
-    graph_html2 = pio.to_html(fig2, full_html=False)
+    try:
+        if graph_type == 'scatter':
+            fig = px.scatter(data, x=x_column, y=y_column)        
+        elif graph_type == 'bar':
+            fig = px.bar(data, x=x_column, y=y_column)
+        elif graph_type == 'pie':
+            fig = px.pie(data, names=x_column)
+        else:
+            return "Tipo de gráfico no soportado", 400
 
-    # Gráfico de sectores 10 
-    top_10 = data.nlargest(10, y_column)
-    fig_top = px.pie(top_10, names=x_column, values=y_column, title=f'Valores mas altos de {y_column} en relacion a {x_column}')
-    graph_html_top = pio.to_html(fig_top, full_html=False)
+        graph_html = pio.to_html(fig, full_html=False)
+    except Exception as e:
+        return f"Error al generar el gráfico: {str(e)}", 500
 
-    # Renderizar en `graficos.html`
     return render_template(
-        'graficos.html',
-        graph1=graph_html1,
-        graph2=graph_html2,
-        fig_top=graph_html_top,
-        x_column=x_column,
-        y_column=y_column
+        'index.html',
+        graph_html=graph_html,
+        graph_type=graph_type,
+        data=data.head(5).to_html(),
+        numeric_columns=data.select_dtypes(include=['number']).columns.tolist(),
+        all_columns=data.columns.tolist(),
+        categorical_columns= data.columns.to_list(),
+        stats=calculate_statistics(data)
     )
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
