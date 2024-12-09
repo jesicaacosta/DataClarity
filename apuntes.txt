@@ -17,4 +17,66 @@ plantilla HTML y pasarle datos dinámicos. Tambijn se pása la
 variable aaaaa para poder utilizarla en el HTML. 
 
 
+----------Librerias
+
+Flask (3.0.3): Framework principal para desarrollar tu aplicación web.
+
+Dependencias de flask: 
+Werkzeug: Es una librería WSGI (Web Server Gateway Interface), que actúa como intermediaria entre el servidor web y tu aplicación Flask.
+    -Proporciona herramientas para gestionar solicitudes HTTP y respuestas.
+    -Incluye características como depuración, enrutamiento de URL, manejo de sesiones y utilidades de seguridad.
+Jinja2:  Es el motor de plantillas que usa Flask para renderizar contenido dinámico en el HTML.
+    Permite insertar lógica Python en plantillas HTML usando expresiones como {{ variable }} o bloques {% for ... %}.
+    Facilita la separación de la lógica del backend y la presentación del frontend.
+itsdangerous: Es una librería para crear y verificar tokens firmados.
+    Ayuda a garantizar la seguridad en aplicaciones web al manejar datos sensibles que se envían entre el cliente y el servidor 
+    (como tokens para restablecimiento de contraseñas o sesiones).
+    Genera tokens seguros con un hash y un tiempo de expiración.
+click: Es una herramienta para crear interfaces de línea de comandos (CLI) en Python.
+    Proporciona comandos como flask run o flask shell para ejecutar y gestionar tu aplicación Flask.
+    Te permite crear tus propios comandos para tareas administrativas (por ejemplo, migrar una base de datos).
+mysql-connector-python (9.1.0): Conexión con tu base de datos MySQL.
+pandas: Procesamiento y análisis de datos en tus archivos CSV/Excel
+matplotlib: Generación de gráficos para las visualizaciones.
+plotplib (parece un error tipográfico de matplotlib): Elimina esta entrada, ya que no es una librería válida.
+weasyprint: Para exportar reportes en formato PDF.
+numpy: Necesaria para cálculos y operaciones numéricas (usada internamente por pandas y matplotlib).
+python-dateutil: Ayuda a manejar fechas, dependencias de pandas.
+
+
+
+---
+Mejoras
+
+- 
+
+
+Hacer que la pagina no se refresque cada que se presiona los botones de graficos
+- Crear poagina aparte para la informacion de los graficos 
+- Crear usuario y contraseña 
+- Conectar con Drvie 
+
+-- AJAX:  es un acrónimo que significa Asynchronous JavaScript and XML (JavaScript Asíncrono y XML) que permite: 
+Cargar datos de un servidor sin recargar toda la página
+Actualizar partes específicas de una página en lugar de actualizar toda la página.
+Crear aplicaciones web más interactivas: Puedes crear aplicaciones que se sientan más como aplicaciones de escritorio, donde las acciones del usuario provocan respuestas casi instantáneas.
+
+
+
+---
+
+
+
+''' 
+@app.route("/generate_report", methods=["POST"]) # peticiones HTTP POST enviadas a la URL /generate_report
+def generate_report():
+    # Generar HTML dinámico
+    rendered = render_template("report_template.html", data=df.describe().to_html())
+    pdf = HTML(string=rendered).write_pdf() # el contenido HTML generado/rendered se pasa a WeasyPrint para que lo convierta en PDF
+    return send_file(BytesIO(pdf), as_attachment=True, download_name="report.pdf")
+    #send_file: Es una función de Flask que envía un archivo como respuesta HTTP.
+    #BytesIO(pdf): Convierte el archivo PDF en formato binario a un objeto BytesIO, que se utiliza para trabajar con datos binarios en memoria (sin necesidad de escribir en el disco).
+    #as_attachment=True: Esto le indica al navegador que el archivo debe ser descargado como un archivo adjunto, en lugar de ser visualizado en el navegador.
+    #download_name="report.pdf": Define el nombre con el que se descargará el archivo, en este caso report.pdf.
+'''
 

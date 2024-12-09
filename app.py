@@ -1,16 +1,17 @@
-from flask import Flask, render_template, request, jsonify  # Flask para crear la app y manejar solicitudes
-import pandas as pd  # Manejo de datos
-import plotly.express as px  # Generar gráficos interactivos
-import plotly.io as pio  # Convertir gráficos de Plotly a HTML
+from flask import Flask, render_template, request  #  crear la app y manejar solicitudes html 
+import pandas as pd  # manejo de datos dataframes
+import plotly.express as px  # Generar graficos interactivos
+import plotly.io as pio  # Convertir garficos de Plotly a HTML
+#from weasyprint import HTML  #generar archivos PDF a partir de contenido HTML.
 
 app = Flask(__name__)
 
-# Variable global para almacenar el DataFrame cargado
+# Variable global para almacenar el DF cargado
 data = None
 
 @app.route('/')
 def home():
-    return render_template('index.html')  # Muestra la página principal
+    return render_template('index.html')  # Muestra la pagina principal
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -24,7 +25,7 @@ def upload_file():
     data_html = data.head(5).to_html()
     numeric_columns = data.select_dtypes(include=['number']).columns.tolist() #solo selecciona columnas numericas
     all_columns = data.columns.tolist() #lista de todas las columnas
-    categorical_columns = data.select_dtypes(include=['object']).columns.tolist()  # columnas no numricas
+    categorical_columns = data.select_dtypes(include=['object']).columns.tolist()  # columnas no numericas
     
     #Limpieza de datos
     nulos= data.isnull().sum()
@@ -37,7 +38,7 @@ def upload_file():
     # llama funcion las estadist del DF cargado
     stats = calculate_statistics(data)
     
-    return render_template(
+    return render_template( #retorna todo para poder utilizarlo
         'index.html', 
         data=data_html, 
         stats=stats, 
@@ -67,7 +68,7 @@ def select_graph():
 
     graph_type = request.form.get('graph_type')
     numeric_columns = data.select_dtypes(include=['number']).columns.tolist()
-    categorical_columns = data.select_dtypes(include=['object']).columns.tolist()
+    categorical_columns = data.select_dtypes(include=['object']).columns.tolist() #
 
     return render_template(
         'index.html',
@@ -94,11 +95,11 @@ def generate_graph():
         return "Por favor, selecciona una columna para el eje X", 400
 
     try:
-        if graph_type == 'scatter':
+        if graph_type == 'scatter': #graf de dispersion
             fig = px.scatter(data, x=x_column, y=y_column)        
-        elif graph_type == 'bar':
+        elif graph_type == 'bar': #
             fig = px.bar(data, x=x_column, y=y_column)
-        elif graph_type == 'pie':
+        elif graph_type == 'pie': #graf de torta, solo con una columna
             fig = px.pie(data, names=x_column)
         else:
             return "Tipo de gráfico no soportado", 400
@@ -110,6 +111,8 @@ def generate_graph():
     return render_template(
         'index.html',
         graph_html=graph_html,
+        x_column=x_column,
+        y_column=y_column,
         graph_type=graph_type,
         data=data.head(5).to_html(),
         numeric_columns=data.select_dtypes(include=['number']).columns.tolist(),
