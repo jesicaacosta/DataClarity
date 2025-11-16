@@ -51,3 +51,55 @@ $(document).ready(function() {
       });
     });
   });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const body = document.getElementById('app-body');
+    const toggleButton = document.getElementById('theme-toggle');
+    const brandImage = document.querySelector('.navbar-brand img');
+    
+    // Función principal para cambiar el tema
+    function applyTheme(theme) {
+        if (theme === 'dark') {
+            body.classList.add('dark-mode');
+            // Cambiar el filtro de la imagen DATACLARITY.png para que se vea bien en fondo oscuro
+            if (brandImage) {
+                // Aplica un filtro CSS inverso (para logos claros en fondo oscuro)
+                brandImage.style.filter = 'invert(1)';
+            }
+            localStorage.setItem('theme', 'dark');
+        } else {
+            body.classList.remove('dark-mode');
+            if (brandImage) {
+                // Elimina el filtro para el modo claro
+                brandImage.style.filter = 'invert(0)';
+            }
+            localStorage.setItem('theme', 'light');
+        }
+    }
+
+    // 1. Cargar preferencia de tema al inicio
+    const savedTheme = localStorage.getItem('theme');
+    // Usamos savedTheme o detectamos el modo del sistema si no hay preferencia guardada
+    const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Prioridad: 1. Preferencia Guardada, 2. Preferencia del Sistema (si no hay guardada), 3. Light
+    if (savedTheme) {
+        applyTheme(savedTheme);
+    } else if (systemPrefersDark) {
+        // Si el usuario no ha elegido aún, usar la preferencia del sistema operativo
+        applyTheme('dark'); 
+    } else {
+        applyTheme('light');
+    }
+
+
+    // 2. Evento para el botón de alternancia
+    if (toggleButton) {
+        toggleButton.addEventListener('click', () => {
+            const currentTheme = body.classList.contains('dark-mode') ? 'light' : 'dark';
+            applyTheme(currentTheme);
+        });
+    }
+
+});

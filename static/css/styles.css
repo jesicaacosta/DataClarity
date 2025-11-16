@@ -1,245 +1,160 @@
-* {
-  box-sizing: border-box;
-  font-family: "Lato", sans-serif;
-  margin: 0;
-  padding: 0;
+/* ============================================== */
+/* 1. PALETA DE COLORES CORPORATIVA (Variables CSS) */
+/* ============================================== */
+
+/* Defecto: MODO CLARO */
+:root {
+    --color-primary: #34495e;           /* Gris Oscuro (Texto y Títulos) */
+    --color-secondary: #2ecc71;         /* Verde Menta (Acentos, Botones) */
+    --color-background: #f8f9fa;        /* Fondo principal (Gris muy claro) */
+    --color-card-background: #ffffff;   /* Fondo de módulos/tarjetas (Blanco puro) */
+    --color-text: #34495e;              /* Texto general */
+    --color-border: #e0e6ed;            /* Bordes sutiles */
+    --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra ligera para modernidad */
+    --navbar-bg: #ffffff;
 }
 
-/* Establecer una tipografía moderna */
+/* MODO OSCURO (Sobrescribimos las variables) */
+#app-body.dark-mode {
+    --color-primary: #ecf0f1;           /* Títulos claros */
+    --color-secondary: #3498db;         /* Azul Brillante (Acentos, Botones) */
+    --color-background: #1a202c;        /* Fondo muy oscuro */
+    --color-card-background: #2d3748;   /* Fondo de tarjetas oscuro */
+    --color-text: #e2e8f0;              /* Texto claro */
+    --color-border: #4a5568;            /* Bordes más oscuros */
+    --shadow-subtle: 0 4px 15px rgba(0, 0, 0, 0.4);
+    --navbar-bg: #2d3748;
+}
+
+/* ============================================== */
+/* 2. ESTILOS BASE Y BOOTSTRAP OVERRIDES */
+/* ============================================== */
+
 body {
-  font-family: "Roboto", sans-serif;
-  background-color: #f4f7f9; /* Fondo gris suave */
-  color: #333; /* Color de texto oscuro */
+    font-family: 'Lato', sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    transition: background-color 0.4s, color 0.4s; /* Transición suave */
+    min-height: 100vh;
 }
 
-/* todos los h1 */
-h1 {
-  font-size: 1.5rem;
-  font-family: "Parkinsans", sans-serif;
-  color: #66bb66;
-  margin-bottom: 20px;
-  text-align: center;
-  padding: 10px;
+/* Estilo para la barra de navegación (Navbar) */
+.navbar {
+    background-color: var(--navbar-bg) !important; /* Usar !important para asegurar la prioridad sobre Bootstrap */
+    box-shadow: var(--shadow-subtle);
+    border-bottom: 1px solid var(--color-border);
+    padding: 10px 15px;
+}
+.navbar-brand img {
+    filter: invert(var(--navbar-invert-filter, 0)); /* Se actualizará con JS si es necesario */
+}
+.navbar a {
+    color: var(--color-text) !important; /* Aplica el color del texto del modo activo */
+}
+.navbar .nav-link:hover {
+    color: var(--color-secondary) !important;
 }
 
-h2 {
-  font-size: 1.4rem;
-  font-family: "Parkinsans", sans-serif;
-  color: #f58404;
-  margin: 30px auto;
+/* Títulos */
+h1, h2, h3, h5 {
+    color: var(--color-primary);
+    padding-top: 10px;
+    margin-bottom: 20px;
+    font-weight: 700;
 }
 
-h3 {
-  font-size: 1.2em;
-  font-family: "Parkinsans", sans-serif;
-  color: #0099cc;
-  margin: 30px auto;
+/* Estilo para los módulos de contenido (Simula tarjetas modernas) */
+.data-table, .stats-section, .card-group, .contenedor_selecc_graf {
+    background-color: var(--color-card-background);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-subtle);
+    margin-top: 30px;
+    border: 1px solid var(--color-border);
 }
 
-
-
-
-/* Botones */
-
-.button_slide  {
-  color: #000000;
-  border: 2px solid rgb(216, 2, 134);
-  border-radius: 0px;
-  padding: 18px 36px;
-  display: inline-block;
-  font-family: "Lucida Console", Monaco, monospace;
-  font-size: 14px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  box-shadow: inset 0 0 0 0 #D80286;
-  -webkit-transition: ease-out 0.4s;
-  -moz-transition: ease-out 0.4s;
-  transition: ease-out 0.4s;
+/* Estilos de Tablas */
+.table-responsive table {
+    background-color: var(--color-card-background);
 }
-.slide_right:hover {
-    box-shadow: inset 400px 0 0 0 #D80286;
-  }
-
-#outer {
-    width: 364px;
-    margin: 50px auto 0 auto;
-    text-align: center;
-  }
-
-
-
-/*SUBIDA DE ARCHIVOS */
-.box-subida{
-  margin: 10px 40px;
-  padding: 30px;
-  background-color: lavender;
-}
-
-/* Estilos para las tabla */
-
-.data-table{
-  margin-top: 80px;
-}
-table {
-  width: 90%;
-  margin: 20px 5px;
-  border-collapse: collapse;
-}
-
-th,
-td {
-  padding: 2px 4px;
-  border-bottom: 1px solid #ddd;
-}
-
-
-td{
-  font-size: .9em;
-  text-align: center;
-}
-tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-tr:hover {
-  background-color: #f1f1f1;
-}
-
 .table-responsive th {
-  background-color: #f8a649;
-  font-family: "Parkinsans", sans-serif;
-  font-weight: 300;
-  color: #fff;
-  font-size: 1em;
-  text-align: center;
-  padding: 3px 6px;
-  border: 1px solid wheat;
+    background-color: var(--color-primary) !important;
+    color: var(--color-card-background);
+}
+.table-responsive td {
+    color: var(--color-text);
+    border-color: var(--color-border);
 }
 
-/* Aplicamos el estilo solo a las celdas de datos (excluyendo el encabezado) */
-table tbody td {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 200px; /* Ajusta este valor según tus necesidades */
-}
-
-/* Para los encabezados, mantenemos el ancho automático */
-table thead th {
-  white-space: nowrap;
-}
-
-
-/* QUE GRAFICO ELEGIR*/
-/* Contenedor de las cards */
-
-.card-img-top {
-  max-height: 200px; /* Ajusta el tamaño máximo deseado */
-  object-fit: contain; /* Opciones: contain, fill, cover */
-}
-
+/* Estilo para las cards (Gráficos) */
 .card {
-  margin: auto 20px;
-}
-.card-img-top{
-  margin: 10px;
-}
-
-/* Sección de gráficos */
-
-.graph-container {
-  margin: 40px 0;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+    background-color: var(--color-card-background);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: none; /* Desactivamos la sombra si el contenedor ya tiene una */
 }
 
-.graph-container iframe {
-  border: none;
-  border-radius: 8px;
-  margin: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Botones y selects (Estilo moderno) */
+input[type="submit"], button:not(.toggle-button), .button_slide {
+    background-color: var(--color-secondary);
+    color: var(--color-card-background);
+    border: none;
+    padding: 10px 25px;
+    border-radius: 50px; /* Hace los botones redondeados */
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 10px;
+    transition: background-color 0.3s;
 }
 
-.graph-result{
-  width: 90%;
-  height: auto;
+input[type="file"], select, .form-control {
+    border: 1px solid var(--color-border);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    padding: 10px;
+    border-radius: 6px;
+    transition: border-color 0.3s;
 }
 
-
-/*INFORMACION DE LOS GRAFICOS */
-.tabla-graph{
-  white-space: nowrap;
-  text-align: left;
-  width: 60%;
-  height: 60vh;
-  overflow-y: scroll;
-  padding-left: 40px;
-  background-color: #fffbf6;
+/* Botón de alternancia de modo */
+.toggle-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    padding: 5px;
+    transition: transform 0.2s;
+    margin-left: 20px;
+    color: var(--color-primary); /* El color del ícono es el color principal */
 }
 
-
-/* Footer */
-footer {
-  background-color: #0099cc ;
-  color: #fff;
-  text-align: center;
-  font-size: 1rem;
-  width: 100%;
-  margin-top: 100px;
-  padding: 10px;
+.toggle-button:hover {
+    transform: scale(1.1);
 }
 
-.social-icon {
-  font-size: 1.2em;
-  color: #fff;
+/* Ocultar el icono opuesto */
+#app-body:not(.dark-mode) .moon-icon {
+    display: none;
+}
+#app-body.dark-mode .sun-icon {
+    display: none;
 }
 
-
-/*PAGINA FAQS*/
-
-.faq-section {
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* Footer (Adaptado al nuevo estilo) */
+.footer {
+    background-color: var(--color-card-background);
+    color: var(--color-text);
+    padding: 20px 0;
+    margin-top: 40px;
+    border-top: 1px solid var(--color-border);
 }
 
-.faq-section h2 {
-  font-family: 'Raleway', sans-serif;
-  color: #343a40;
-}
-
-.accordion .card {
-  border: none;
-  margin-bottom: 1rem;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.accordion .card-header {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  font-family: 'Roboto', sans-serif;
-}
-
-.accordion .btn-link {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.accordion .btn-link:hover {
-  text-decoration: underline;
-}
-
-.accordion .card-body {
-  background-color: #ffffff;
-  color: #343a40;
-  padding: 15px 20px;
-  font-family: 'Lato', sans-serif;
-}
-
-.accordion .collapse.show {
-  background-color: #e9ecef;
+/* Estilos para el texto preformateado (donde se ve el data_text) */
+pre {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    padding: 15px;
+    border-radius: 8px;
 }
