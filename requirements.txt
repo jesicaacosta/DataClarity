@@ -5,3 +5,7 @@ matplotlib
 numpy
 python-dateutil
 weasyprint
+plotly
+scikit-learn
+openpyxl
+flask 

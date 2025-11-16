@@ -65,3 +65,4 @@ data: El conjunto de datos (por ejemplo, un DataFrame de pandas) que contiene la
 x: Nombre de la columna para el eje X.
 y: Nombre de la columna para el eje Y.
 title: El título del gráfico.
+
