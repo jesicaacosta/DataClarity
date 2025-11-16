@@ -1,11 +1,11 @@
 Flask
-mysql-connector-python
 pandas
 matplotlib
 numpy
 python-dateutil
-weasyprint
 plotly
-scikit-learn
+scikit-learn # for machine learning
 openpyxl
-flask 
+flask  # lightweight web framework
+python-dateutil # for date parsing
+

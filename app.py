@@ -1,88 +1,87 @@
-from flask import Flask, render_template, request  #  crear la app y manejar solicitudes html 
-import pandas as pd  # manejo de datos dataframes
-import plotly.express as px  # Generar graficos interactivos
-import plotly.io as pio  # Convertir garficos de Plotly a HTML
-#from weasyprint import HTML  #generar archivos PDF a partir de contenido HTML.
+from flask import Flask, render_template, request, session, redirect, url_for
+import pandas as pd
+import plotly.express as px
+import plotly.io as pio
+import json
+# Importamos la lógica de negocio modularizada
+from src.data_processor import process_uploaded_file, calculate_statistics 
 
+# --- CONFIGURACIÓN DE APLICACIÓN SEGURA ---
 app = Flask(__name__)
+# CLAVE CRÍTICA: Necesaria para cifrar las 'sessiones' de cada usuario. 
+# Esto elimina el riesgo de la variable global y la inseguridad. 
+# IMPORTANTE: Reemplace este valor con una cadena larga y aleatoria en producción.
+app.config['SECRET_KEY'] = 'UnaClaveSecretaMuyLargaYCompleja1234567890' 
 
-# Variable global para almacenar el DF cargado
-data = None
+# --- FUNCIONES DE SOPORTE ---
+def get_data_from_session():
+    """Recupera el DataFrame de la sesión del usuario (si existe)."""
+    # session.get('data') retorna el JSON del DF o None
+    data_json = session.get('data')
+    if data_json:
+        # Se convierte el JSON de vuelta a DataFrame de Pandas
+        return pd.read_json(data_json, orient='split')
+    return None
+
+# --- RUTAS WEB (CONTROLADORES) ---
 
 @app.route('/')
 def home():
-    return render_template('index.html')  # muestra la pagina principal
-
-@app.route('/upload', methods=['POST'])
-def upload_file():
-    global data  # hace quye data sea global
-    file = request.files['file']  # Archivo subido 
-    if file.filename == '':
-        return "Por favor, selecciona un archivo CSV, Excel o JSON", 400
-    #Agregar funcion volver index.html
-
-    # Detectar y leer archivo
-    try:
-        if file.filename.endswith('.xlsx'):
-            data = pd.read_excel(file)
-        elif file.filename.endswith('.json'):
-            data = pd.read_json(file)
-        else:
-            data = pd.read_csv(file)
-    except Exception as e:
-        return f"Error al leer el archivo: {str(e)}", 500
-                
-    #columnas 
-    numeric_columns = data.select_dtypes(include=['number']).columns.tolist() #solo selecciona columnas numericas
-    all_columns = data.columns.tolist() #lista de todas las columnas
-    categorical_columns = data.select_dtypes(include=['object']).columns.tolist()  # columnas no numericas
-        
-    #Limpieza de datos
-    for column in numeric_columns:
-        data[column] = data[column].fillna(data[column].mean())   
-        
-    for column in categorical_columns:
-        data[column] = data[column].fillna('Sin Datos')
-    #recomendado hacer la limpieza de datos con machine learning, por moda, tendencias
-            
-    data_html = data.head(10).to_html()
-    stats = calculate_statistics(data)
+    # Si no hay datos cargados en la sesión, se limpia la vista de gráficos
+    if not session.get('data'):
+        return render_template('index.html')
     
-    return render_template( #retorna todo para poder utilizarlo
+    # Si hay datos, se recuperan las estadísticas para mostrarlas
+    data = get_data_from_session()
+    stats = calculate_statistics(data)
+    numeric_columns = data.select_dtypes(include=['number']).columns.tolist()
+    categorical_columns = data.select_dtypes(include=['object']).columns.tolist()
+    all_columns = data.columns.tolist()
+
+    return render_template(
         'index.html', 
-        data=data_html, 
+        data=data.head(10).to_html(),
         stats=stats, 
         numeric_columns=numeric_columns,
         categorical_columns=categorical_columns,
         all_columns=all_columns
     )
-    
-    
 
-   
-#FUNION CALCULAR ESTADISTICAS
-def calculate_statistics(data):
-    stats = {}
-    for column in data.select_dtypes(include=['number']).columns:
-        stats[column] = {
-            'count': data[column].count(),  # Cantidad de valores no nulos 
-            'mean': round(data[column].mean(), 2),  # Promedio redondeado a dos decimales
-            'std_dev': round(data[column].std(), 2),  # Desviacion estandar
-            'min': data[column].min(),  # Valor min
-            'max': data[column].max()   # Valor max
-        }
-    return stats
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    
+    # Se utiliza request.files.get('file') para que funcione como antes.
+    file = request.files.get('file')  
+    
+    if file is None or file.filename == '':
+        return "Por favor, selecciona un archivo CSV, Excel o JSON", 400
+
+    try:
+        # Se pasa el archivo a la función modularizada para procesar.
+        data, numeric_columns, categorical_columns = process_uploaded_file(file, file.filename)
+        
+        # Guardamos el DataFrame PROCESADO en la sesión del usuario como JSON (orient='split' es robusto)
+        session['data'] = data.to_json(orient='split')
+        
+        # Redireccionamos a la ruta home (/) para que se ejecute y muestre la tabla
+        return redirect(url_for('home'))
+
+    except Exception as e:
+        # En caso de error, limpiamos la sesión para forzar al usuario a empezar de nuevo.
+        session.pop('data', None)
+        return f"Error al leer o procesar el archivo: {str(e)}", 500
 
 
 @app.route('/select-graph', methods=['POST'])
 def select_graph():
-    global data
+    data = get_data_from_session()
     if data is None:
-        return "No hay datos cargados", 400
+        return redirect(url_for('home')) # Redirige si no hay datos.
 
     graph_type = request.form.get('graph_type')
+    
     numeric_columns = data.select_dtypes(include=['number']).columns.tolist()
-    categorical_columns = data.select_dtypes(include=['object']).columns.tolist() #
+    categorical_columns = data.select_dtypes(include=['object']).columns.tolist()
 
     return render_template(
         'index.html',
@@ -90,23 +89,22 @@ def select_graph():
         numeric_columns=numeric_columns,
         all_columns=data.columns.tolist(),
         categorical_columns=categorical_columns,
-        data=data.head(5).to_html()
+        data=data.head(5).to_html(),
+        stats=calculate_statistics(data)
     )
-
 
 @app.route('/generate-graph', methods=['POST'])
 def generate_graph():
-    global data
+    data = get_data_from_session()
     if data is None:
-        return "No hay datos cargados", 400
+        return redirect(url_for('home')) # Redirige si no hay datos.
     
-#obtener valores del formulario
+    # ... El resto de la lógica de generación de gráficos permanece igual ...
     graph_type = request.form.get('graph_type')
     x_column = request.form.get('x_column')
     y_column = request.form.get('y_column') if graph_type != 'pie' else None
     
     
-    # Validar que las columnas seleccionadas existan
     if not x_column or x_column not in data.columns:
         return "Por favor, selecciona una columna válida para el eje X", 400
     
@@ -114,24 +112,21 @@ def generate_graph():
         return "Por favor, selecciona una columna válida para el eje Y", 400
 
     try:
-        #generar grafico
-        if graph_type == 'scatter': #graf de dispersion
+        if graph_type == 'scatter':
             fig = px.scatter(data, x=x_column, y=y_column)        
-        elif graph_type == 'bar': #
+        elif graph_type == 'bar':
             fig = px.bar(data, x=x_column, y=y_column)
-        elif graph_type == 'pie': #graf de torta, solo con una columna
+        elif graph_type == 'pie':
             fig = px.pie(data, names=x_column)
         else:
             return "Tipo de gráfico no soportado", 400
 
-#convertir grafico a HTML
         graph_html = pio.to_html(fig, full_html=False)
 
     
     except Exception as e:
         return f"Error al generar el gráfico: {str(e)}", 500
 
-        # Seleccionar columnas válidas para mostrar
     columns_to_display = [col for col in [x_column, y_column] if col]
     data_text = data[columns_to_display].to_string(index=False)
     
@@ -150,9 +145,11 @@ def generate_graph():
         stats=calculate_statistics(data)
     )
 
-#PAGINA FAQS
+# ... (La ruta /faqs y el main se dejan iguales) ...
+
 @app.route("/faqs")
 def faqs():
+    # ... (contenido de faqs.html) ...
     preguntas = [
         "¿Qué tipos de archivos puedo subir a la plataforma?",
         "¿Mis datos están seguros?",
