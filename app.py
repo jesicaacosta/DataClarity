@@ -11,10 +11,11 @@ app = Flask(__name__)
 # CLAVE CRÍTICA: Necesaria para cifrar las 'sessiones' de cada usuario. 
 # Esto elimina el riesgo de la variable global y la inseguridad. 
 # IMPORTANTE: Reemplace este valor con una cadena larga y aleatoria en producción.
-app.config['SECRET_KEY'] = 'UnaClaveSecretaMuyLargaYCompleja1234567890' 
+app.config['' \
+''] = 'GeneraUnaClaveAquiConMasDe2shjkddsakdbsajkbdjw!23848sdmand' 
 
 # --- FUNCIONES DE SOPORTE ---
-def get_data_from_session():
+def get_data_from_session(): 
     """Recupera el DataFrame de la sesión del usuario (si existe)."""
     # session.get('data') retorna el JSON del DF o None
     data_json = session.get('data')
@@ -185,6 +186,18 @@ def faqs():
         "Sí, nuestra plataforma es responsive y funciona en todos los dispositivos."
     ]
     return render_template("faqs.html", preguntas=preguntas, respuestas=respuestas)
+
+
+
+
+# --- NUEVA RUTA: RESET DE DATOS --- 
+@app.route('/reset-data') # Ruta para limpiar los datos de la sesión
+def reset_data(): 
+    """Limpia el DataFrame de la sesión del usuario y redirige a la página de inicio."""
+    # Acción: Eliminar la clave 'data' de la sesión. Si no existe, no hace nada (seguro).
+    session.pop('data', None)
+    # Redireccionamos a la función home (/) para recargar la página limpia
+    return redirect(url_for('home')) # Redirige a la página de inicio limpia
 
 
 if __name__ == '__main__':
