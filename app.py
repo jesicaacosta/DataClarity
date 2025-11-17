@@ -11,8 +11,7 @@ app = Flask(__name__)
 # CLAVE CRÍTICA: Necesaria para cifrar las 'sessiones' de cada usuario. 
 # Esto elimina el riesgo de la variable global y la inseguridad. 
 # IMPORTANTE: Reemplace este valor con una cadena larga y aleatoria en producción.
-app.config['' \
-''] = 'GeneraUnaClaveAquiConMasDe2shjkddsakdbsajkbdjw!23848sdmand' 
+app.config['SECRET_KEY'] = 'ESTE_DEBE_SER_UN_STRING_LARGO_Y_SECRETO_QUE_NADIE_PUEDA_ADIVINAR_AumentandoLaSeguridad12345'
 
 # --- FUNCIONES DE SOPORTE ---
 def get_data_from_session(): 

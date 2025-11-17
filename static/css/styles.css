@@ -4,11 +4,11 @@
 
 /* Defecto: MODO CLARO */
 :root {
-    --color-primary: #34495e;           /* Gris Oscuro (Texto y Títulos) */
-    --color-secondary: #2ecc71;         /* Verde Menta (Acentos, Botones) */
+    --color-primary: #5e3451;           /* Gris Oscuro (Texto y Títulos) */
+    --color-secondary: #d4bbf7;         /* Lila Suave (Acentos, Botones) */
     --color-background: #f8f9fa;        /* Fondo principal (Gris muy claro) */
     --color-card-background: #ffffff;   /* Fondo de módulos/tarjetas (Blanco puro) */
-    --color-text: #34495e;              /* Texto general */
+    --color-text: #42264a;              /* Texto general */
     --color-border: #e0e6ed;            /* Bordes sutiles */
     --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra ligera para modernidad */
     --navbar-bg: #ffffff;
@@ -17,13 +17,13 @@
 /* MODO OSCURO (Sobrescribimos las variables) */
 #app-body.dark-mode {
     --color-primary: #ecf0f1;           /* Títulos claros */
-    --color-secondary: #3498db;         /* Azul Brillante (Acentos, Botones) */
+    --color-secondary: #8C2066;         /* Lila Intenso (Acentos, Botones) */
     --color-background: #1a202c;        /* Fondo muy oscuro */
-    --color-card-background: #2d3748;   /* Fondo de tarjetas oscuro */
+    --color-card-background: #5c4179;   /* Fondo de tarjetas oscuro */
     --color-text: #e2e8f0;              /* Texto claro */
-    --color-border: #4a5568;            /* Bordes más oscuros */
+    --color-border: #684a62;            /* Bordes más oscuros */
     --shadow-subtle: 0 4px 15px rgba(0, 0, 0, 0.4);
-    --navbar-bg: #2d3748;
+    --navbar-bg: #5c4179;
 }
 
 /* ============================================== */
@@ -36,6 +36,7 @@ body {
     color: var(--color-text);
     transition: background-color 0.4s, color 0.4s; /* Transición suave */
     min-height: 100vh;
+    line-height: 1.6; 
 }
 
 /* Estilo para la barra de navegación (Navbar) */
@@ -53,14 +54,32 @@ body {
 }
 .navbar .nav-link:hover {
     color: var(--color-secondary) !important;
+
 }
 
 /* Títulos */
-h1, h2, h3, h5 {
+h1 {
+    font-size: 1.3rem; /* Asegura un tamaño adecuado para el título principal */
+    letter-spacing: -0.5px; /* Un ligero ajuste negativo le da un toque moderno */
+    border-bottom: 2px solid var(--color-secondary); /* Añade una línea de acento sutil */
+    display: inline-block; /* La línea solo se extiende bajo el texto */
+    padding-bottom: 5px;
+}
+
+h2 {
     color: var(--color-primary);
     padding-top: 10px;
     margin-bottom: 20px;
-    font-weight: 700;
+    font-weight: 400;
+    font-size: 1.2em;
+}
+
+h3, h5 {
+    color: var(--color-primary);
+    padding-top: 10px;
+    margin-bottom: 20px;
+    font-weight: 300;
+    font-size: 1.1em;
 }
 
 /* Estilo para los módulos de contenido (Simula tarjetas modernas) */
@@ -71,19 +90,45 @@ h1, h2, h3, h5 {
     box-shadow: var(--shadow-subtle);
     margin-top: 30px;
     border: 1px solid var(--color-border);
+    margin-bottom: 40px; /* Aumenta el espacio para separar visualmente los módulos */
+    box-shadow: var(--shadow-subtle);
+}
+
+/* Compact cards and modal styles for improved responsiveness */
+.compact-card .card-body { padding: 0.75rem; }
+.compact-card .card-title { font-size: 1rem; margin-bottom: 0.4rem; }
+.compact-card .card-text { font-size: 0.875rem; margin-bottom: 0; }
+.compact-card .card-img-top { max-height: 140px; object-fit: cover; }
+
+/* Reduce spacing for the small/mobile compact row */
+.card.d-block.d-md-none .card-body { padding: 0.6rem; }
+
+/* Modal image sizing */
+.modal-body img { max-height: 220px; object-fit: cover; display: block; margin-left: auto; margin-right: auto; }
+
+/* Slightly smaller fonts on very small screens */
+@media (max-width: 400px) {
+    .compact-card .card-title { font-size: 0.95rem; }
+    .compact-card .card-text { font-size: 0.82rem; }
 }
 
 /* Estilos de Tablas */
 .table-responsive table {
     background-color: var(--color-card-background);
+
+
 }
 .table-responsive th {
-    background-color: var(--color-primary) !important;
-    color: var(--color-card-background);
+      padding: 2px 5px;
+      text-align: center;
+      background-color: #8C2066;
+      font-size: .7rem;
+      text-transform: uppercase;
 }
 .table-responsive td {
     color: var(--color-text);
     border-color: var(--color-border);
+    font-size: .8rem;
 }
 
 /* Estilo para las cards (Gráficos) */
@@ -98,9 +143,9 @@ h1, h2, h3, h5 {
 /* Botones y selects (Estilo moderno) */
 input[type="submit"], button:not(.toggle-button), .button_slide {
     background-color: var(--color-secondary);
-    color: var(--color-card-background);
+    color: var(--color-text);
     border: none;
-    padding: 10px 25px;
+    padding: 5px 10px;
     border-radius: 50px; /* Hace los botones redondeados */
     cursor: pointer;
     font-weight: 600;
@@ -112,9 +157,11 @@ input[type="file"], select, .form-control {
     border: 1px solid var(--color-border);
     background-color: var(--color-background);
     color: var(--color-text);
-    padding: 10px;
-    border-radius: 6px;
+    padding: 12px 15px;
+    border-radius: 8px;
     transition: border-color 0.3s;
+    font-size: .9rem;
+    height: auto;
 }
 
 /* Botón de alternancia de modo */
@@ -157,4 +204,53 @@ pre {
     border: 1px solid var(--color-border);
     padding: 15px;
     border-radius: 8px;
+}
+
+footer a {
+    color: var(--color-secondary);
+    text-decoration: none;
+    width:max-content;
+}
+
+/* Estilo para la vista previa de datos del gráfico */
+.graph-box {
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 20px;
+    background-color: var(--color-background);
+    margin-bottom: 20px;
+}
+
+/* Estilo para los títulos dentro de la sección de gráficos */
+.graph-result h3 {
+    text-align: center;
+    color: var(--color-secondary); /* Usa el color de acento para destacar el título del gráfico */
+    font-weight: 800;
+}
+
+
+/* Estilo para los botones */
+input[type="submit"], button:not(.toggle-button), .button_slide {
+    /* ... (Propiedades de botón existentes) ... */
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra inicial */
+}
+
+/* Efecto Hover */
+input[type="submit"]:hover, button:not(.toggle-button):hover, .button_slide:hover {
+    background-color: #8C2066; /* Un verde ligeramente más oscuro */
+    transform: translateY(-2px); /* Eleva ligeramente el botón */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Sombra más fuerte al elevar */
+}
+
+/* Estilo para el botón de ELIMINAR DATOS */
+.btn-danger {
+    border-radius: 50px;
+    font-weight: 700;
+    padding: 10px 30px;
+    transition: transform 0.2s;
+}
+
+.btn-danger:hover {
+    transform: scale(1.05); /* Llama la atención sobre la acción de reinicio */
 }
